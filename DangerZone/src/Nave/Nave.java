@@ -2,12 +2,14 @@ package Nave;
 
 import javax.swing.JLabel;
 
+import Arma.Arma;
+import Logica.Nivel;
+
 public abstract class Nave  extends JLabel{
 protected int vida;
 protected int velocidad;
 protected Arma arma;
 protected Nivel nivel;
-protected int danio;
 
 //Setters y Getters
 
@@ -31,10 +33,5 @@ public Arma getArma () {
 public void setArma(Arma arma) {
 	this.arma=arma;
 }
-public int getDanio() {
-	return danio;
-}
-public void setDanio (int danio) {
-	this.danio=danio;
-}
+
 }

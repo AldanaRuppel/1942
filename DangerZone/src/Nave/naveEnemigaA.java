@@ -1,11 +1,11 @@
 package Nave;
 
-public class naveEnemigaA extends Nave {
+public class naveEnemigaA extends NaveEnemiga {
 	
 public naveEnemigaA() {
 	vida=7;
 	velocidad=3;
-	danio=2;
+	
 }
 
 	@Override

@@ -1,17 +1,11 @@
 package Nave;
 
-public class Boss  extends Nave{
-	
-	public Boss () {
-		vida=10;
-		velocidad=6;
-	}
+public  class NaveEnemiga  extends Nave{
 
 	@Override
 	public void atacar() {
 		// TODO Auto-generated method stub
 		
 	}
-	}
 
-
+}
