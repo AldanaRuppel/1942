@@ -10,5 +10,10 @@ public NaveEnemiga () {
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public void mover() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

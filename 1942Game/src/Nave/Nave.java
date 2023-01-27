@@ -33,5 +33,9 @@ public Arma getArma () {
 public void setArma(Arma arma) {
 	this.arma=arma;
 }
+public Nivel getNivel() {
+	return nivel;
+}
+public abstract void mover();
 
 }
