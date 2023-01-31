@@ -11,7 +11,7 @@ public NaveEnemiga () {
 		
 	}
 	@Override
-	public void mover() {
+	public void mover(int i) {
 		// TODO Auto-generated method stub
 		
 	}

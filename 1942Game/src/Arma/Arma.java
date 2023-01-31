@@ -6,6 +6,7 @@ public abstract class Arma  extends JLabel{
 	protected int danio;
 	protected int velocidad;
 	
-public abstract void mover();
+	public abstract void mover();
+	public JLabel getArma() {return this;}
 
 }
