@@ -239,16 +239,7 @@ public class Nivel {
 	          proyectil.aceppt(naves.getVisitor());
 	        }
 	      }
-	      
-	      Iterator<Planta> it = copiaPlantas.iterator();
-	      while (it.hasNext() && !colisionPlanta) {
-	        Planta planta = it.next();
-	        if (zombie.getBounds().intersects(planta.getBounds())) {
-	          colisionPlanta = true;
-	          planta.accept(zombie.getVisitor());
-
-	          copiaPlantas.remove(copiaPlantas.indexOf(planta));
-	          it = copiaPlantas.iterator();
+	   
 	        }
 	      }
 	    }
