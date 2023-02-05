@@ -1,19 +1,38 @@
 package Nave;
 
-public   class NaveEnemiga  extends Nave{
+import Arma.Arma;
+
+import Arma.Laser;
+import Arma.Proyectil;
+import GUI.autoRemove;
+import Logica.Nivel;
+import Visitores.Visitor;
+
+
+public  abstract class NaveEnemiga  extends Nave{
 	
-public NaveEnemiga () {
+	Nivel nivel = Nivel.getNivel();
+	protected int tiempoAtaque;
 	
-}
-	@Override
+
+@Override
 	public void atacar() {
-		// TODO Auto-generated method stub
-		
+		arma = generarAtaque();
+		nivel.setArma(arma);
+		arma.setVisible(true);
 	}
-	@Override
-	public void mover(int i) {
-		// TODO Auto-generated method stub
-		
+
+	protected abstract Proyectil generarAtaque();
+	
+	public int getTiempoAtaque() {return tiempoAtaque;}
+	
+	public void aceptar(Visitor visitor) {
+		visitor.visit(this);
 	}
+
+	public Visitor getVisitor() {
+		return visitor;
+	}
+
 
 }

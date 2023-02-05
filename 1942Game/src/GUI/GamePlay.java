@@ -161,19 +161,27 @@ public class GamePlay extends JFrame {
 		
 	}
 	
-	public void preparar(NaveEnemiga n, int x, int y) {
-		n.setLocation(x,y);
-		jPanelNivel.add(n);
-		hilo.start();
-	}
+	
 	
 	public void agregarAlPanel (JLabel l) {
 		jPanelNivel.add(l);
 		this.repaint();
 	}
 	
+	public void quitarDelPanel (JLabel l) {
+		jPanelNivel.remove(l);
+		this.repaint();
+	}
 	
-}
+	
+	public void actualizar() {this.repaint();}
+	
+	public JLabel mostrarGameOver() {
+		return jLabelPerdi;
+	}
+ 
+		
+ }
 
 
 

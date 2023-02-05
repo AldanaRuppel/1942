@@ -40,12 +40,12 @@ public class SplashScreen extends JWindow {
 		 content.add(copyrt, "South");
 
 		 // Set the window's bounds, centering the window
-		 int width = 750;
-		 int height =315;
+		 int width =800;
+		 int height =600;
 		 Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-		 int x = (screen.width-width)/2;
-		 int y = (screen.height-height)/2;
-		 this.setBounds(350, 5, 600, 700);
+		 int x = screen.width;
+		 int y = screen.height;
+		 this.setBounds(350, 5, 800, 600);
 		
 		 // Build the splash screen
 
@@ -59,8 +59,8 @@ public class SplashScreen extends JWindow {
 			 jLabelTitle.setBounds(117, 236, 387, 157);
 		 }
 		 content.add(label, BorderLayout.CENTER);
-		 label.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Recursos/danger.jpg")));
-		 label.setBounds(0, 1, 600, 700);
+		 label.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Recursos/fondoScreen.png")));
+		 label.setBounds(0, 1, 800, 600);
 		 copyrt.setBounds(95, 371, 463, 43);
 		 
 		 // Display it

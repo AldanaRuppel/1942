@@ -2,17 +2,22 @@ package Nave;
 
 import javax.swing.JLabel;
 
-import Arma.Arma;
-import Logica.Nivel;
 
-public abstract class Nave  extends JLabel{
+import Arma.Arma;
+import Arma.Proyectil;
+import Entidad.Entidad;
+import Logica.Nivel;
+import Visitores.Visitor;
+
+public abstract class Nave  extends Entidad{
 protected int vida;
-protected int velocidad;
 protected Arma arma;
 protected Nivel nivel;
 protected int puntajeNave;
+protected Visitor visitor;
 
 //Setters y Getters
+
 
 	public int getVida() {
 		return vida;
@@ -34,13 +39,13 @@ protected int puntajeNave;
 	public Arma getArma () {
 		return arma;
 	}
-	public void setArma(Arma arma) {
-		this.arma=arma;
+	public void setArma(Proyectil proyectil) {
+		this.arma=proyectil;
 	}
 	public Nivel getNivel() {
 		return nivel;
 	}
-	public abstract void mover(int i);
+	
 	
 	public void setPuntajeNave(int puntaje ) {
 		this.puntajeNave=puntaje;
@@ -48,4 +53,6 @@ protected int puntajeNave;
 	public int obtenerPuntaje () {
 		return puntajeNave;
 	}
+	
+
 }

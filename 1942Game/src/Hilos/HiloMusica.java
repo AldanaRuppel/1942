@@ -8,13 +8,15 @@ import java.net.URISyntaxException;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
+
+
 public class HiloMusica implements Runnable {
 	
 	protected String musica;
 	protected long milisegundos;
 	
 	public HiloMusica() {
-		musica = "./recursos/audioMusica.mp3";
+		musica = "Recursos/audioMusica.mp3";
 		milisegundos = 0;
 	}
 
@@ -23,7 +25,7 @@ public class HiloMusica implements Runnable {
 		
 			while (true){
 				milisegundos ++;
-				if (milisegundos % 180000 == 0) {
+				if (milisegundos % 88000== 0) {
 					try {
 						File archivo = new File(getClass().getClassLoader().getResource(musica).toURI());
 						FileInputStream fis = new FileInputStream(archivo);
@@ -44,4 +46,4 @@ public class HiloMusica implements Runnable {
 
 
 
-}
+

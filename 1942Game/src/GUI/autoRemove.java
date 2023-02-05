@@ -3,13 +3,16 @@ package GUI;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Logica.Nivel;
+
 public class autoRemove  extends Thread{
 	protected JLabel label;
 	protected JPanel panel;
+	Nivel nivel = Nivel.getNivel();
 	
-	public autoRemove( JLabel label, JPanel panel ) {
+	public autoRemove( JLabel label) {
 		this.label = label;
-		this.panel = panel;
+		this.panel = nivel.juego.jPanelNivel;
 	}
 	
 	public void run() {
