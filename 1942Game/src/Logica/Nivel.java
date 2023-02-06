@@ -23,9 +23,6 @@ import Nave.NaveEnemiga;
 import Nave.NaveEnemigaA;
 import Nave.NaveEnemigaB;
 import Nave.NaveJugador;
-import Plantas.Planta;
-import Zombies.Zombie;
-
 
 
 public class Nivel {
@@ -41,6 +38,7 @@ public class Nivel {
 	protected LinkedList<NaveEnemiga> navesPantalla;
 	protected LinkedList<Proyectil> proyectiles;
 	protected PowerUp power;
+	protected  NaveEnemiga naveE;
 	
 	private static Nivel nivel = new Nivel();
 	
@@ -64,11 +62,14 @@ public class Nivel {
 			nivel.perder();
 		}
 	public void consumirVidaNave() {
-	 int vidaConsumida=jugador.getVida();
-		if (nave.getVida()==0)
-			vidaConsumida--;
+		nave.consumirVida();
+		jugador.consumirVidaJugador();
 	}
-
+	public void consumirVidaEnemiga() {
+		naveE.consumirVida();
+		
+	}
+	
 
 	public LinkedList<LinkedList<NaveEnemiga>> getEnemigos() {
 		return (LinkedList<LinkedList<NaveEnemiga>>) conjuntoEnemigo.clone();
@@ -203,6 +204,7 @@ public class Nivel {
 		
 		for (Proyectil p: (LinkedList<Proyectil>)proyectiles.clone()) {
 			p.moverArmamento(2);
+			p.moverArmamento(4);
 			p.repaint();
 			juego.actualizar();
 		}
@@ -216,9 +218,8 @@ public class Nivel {
 		juego.quitarDelPanel(l);
 	}
 	public void EliminarNaveJugador() {
-		consumirVidaNave();
 		juego.quitarDelPanel( nave);
-		hiloEnemigos.stop();
+		 hiloEnemigos.stop();
 		hiloMoverEnemigos.stop();
 		juego.mostrarGameOver();
 	}
@@ -229,21 +230,23 @@ public class Nivel {
 		
 	}
 	public void ColisionNaveJugador() {
-		LinkedList<LinkedList<NaveEnemiga>> copiaEnemigos = (LinkedList<LinkedList<NaveEnemiga>>) conjuntoEnemigo.clone();
-	    LinkedList<Proyectil> copiaProyectil = (LinkedList<Proyectil>) proyectiles.clone();
-	    for (LinkedList<NaveEnemiga> naves : copiaEnemigos) {
-	      boolean colision = false;
-	      
-	      for (Proyectil proyectil : copiaProyectil) {
-	        if (naves.getBounds().intersects(proyectil.getBounds())) {
-	          proyectil.aceppt(naves.getVisitor());
-	        }
-	      }
-	   
-	        }
-	      }
-	    }
-	  } 
+		  if (nave.getBounds().intersects(power.getBounds())) {
+			  power.aceptar(nave.getVisitor());
+		  }
+		LinkedList<NaveEnemiga> copiaEnemigos = (LinkedList<NaveEnemiga>) conjuntoEnemigo.clone();
+		LinkedList<Proyectil> copiaProyectil = (LinkedList<Proyectil>) proyectiles.clone();
+		   
+		    for (Proyectil proyectil : copiaProyectil) {
+		        if (nave.getBounds().intersects(proyectil.getBounds())) {
+		          proyectil.aceppt(nave.getVisitor());
+		        }
+		    }
+		    for (NaveEnemiga enemigos : copiaEnemigos) {
+		        if (nave.getBounds().intersects(enemigos.getBounds())) {
+		           enemigos.aceppt(nave.getVisitor());
+		        }
+		    }
+	}
 		
 	
 	public void ColisionEnemigos () {

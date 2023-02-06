@@ -13,6 +13,7 @@ import Visitores.Visitor;
 public class NaveJugador extends Nave {
 	
 	public Nivel nivel = Nivel.getNivel();
+	protected Visitor visitor;
 
 	
 	public NaveJugador () {
@@ -39,6 +40,10 @@ public class NaveJugador extends Nave {
 	}
 	public void aumentarVelocidad(int mult) {
 		velocidad=velocidad*mult;
+	}
+
+	public Visitor getVisitor() {
+		return visitor;
 	}
 
 }

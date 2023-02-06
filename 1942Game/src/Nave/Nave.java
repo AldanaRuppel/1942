@@ -53,6 +53,9 @@ protected Visitor visitor;
 	public int obtenerPuntaje () {
 		return puntajeNave;
 	}
+	public void consumirVida() {
+		vida--;
+	}
 	
 
 }

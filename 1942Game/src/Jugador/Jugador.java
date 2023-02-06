@@ -20,4 +20,7 @@ public class Jugador {
 	public void setVida(int vida) {
 		this.vida=vida;
 	}
+	public void consumirVidaJugador() {
+		vida--;
+	}
 }

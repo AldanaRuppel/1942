@@ -13,7 +13,7 @@ public  abstract class NaveEnemiga  extends Nave{
 	
 	Nivel nivel = Nivel.getNivel();
 	protected int tiempoAtaque;
-	
+	protected Visitor visitor;
 
 @Override
 	public void atacar() {
@@ -25,13 +25,15 @@ public  abstract class NaveEnemiga  extends Nave{
 	protected abstract Proyectil generarAtaque();
 	
 	public int getTiempoAtaque() {return tiempoAtaque;}
-	
-	public void aceptar(Visitor visitor) {
-		visitor.visit(this);
-	}
+
 
 	public Visitor getVisitor() {
 		return visitor;
+	}
+
+	public void aceppt(Visitor visitor) {
+		visitor.visit(this);
+		
 	}
 
 

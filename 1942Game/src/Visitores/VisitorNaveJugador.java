@@ -42,6 +42,7 @@ public class VisitorNaveJugador  extends Visitor{
 	@Override
 	public void visit(NaveEnemiga nE) {
 		nivel.EliminarNaveEnemiga(nE);
+		nivel.consumirVidaNave();
 		
 	}
 
