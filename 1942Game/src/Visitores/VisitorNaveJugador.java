@@ -11,12 +11,16 @@ public class VisitorNaveJugador  extends Visitor{
 	
 	protected NaveJugador nave;
 	protected 	Nivel nivel = Nivel.getNivel();
-
+	
+	public VisitorNaveJugador (NaveJugador n) {
+		nave = n;
+	}
+	
 	@Override
 	public void visit(PowerUp powerUp) {
 		powerUp.consumir();
 		nivel.EliminarElemento(powerUp);
-		nave.aumentarVelocidad(powerUp.getMultiplicador());
+		nave.setVelocidad(5);
 		
 	}
 
@@ -24,16 +28,14 @@ public class VisitorNaveJugador  extends Visitor{
 	
 	public void visit(Proyectil proyectil) {
 		int danio=proyectil.getDanio();
-		if(nave.getVida()>danio) {
+		if(nave.getVida() > danio) {
 			nave.recibirDanio(danio);
+			nivel.EliminarElemento(proyectil);
 		}else {
-				nivel.EliminarNaveJugador();
+			nivel.EliminarNaveJugador();
 		}
 	}
 		
-		
-
-	@Override
 	public void visit(Laser laser) {
 		// La nave jugador no visita al laser
 		

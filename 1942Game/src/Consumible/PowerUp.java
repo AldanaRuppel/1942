@@ -5,25 +5,26 @@ import java.awt.Label;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import GUI.GamePlay;
 import Visitores.Visitor;
 
 public class PowerUp extends JLabel {
 	
-	protected int multiplicador;
+	protected float multiplicador;
 	protected boolean consumido;
+	protected GamePlay juego;
+	
 
-	public PowerUp (int puntaje) {
-		multiplicador=puntaje;
+	public PowerUp () {
+		
 		this.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Recursos/powerUp.png")));
 		int x = (int)(Math.random()*(15-495+1)+495);
 		int y = (int)(Math.random()*(595-305+1)+305);
 		this.setBounds(x, y,this.getIcon().getIconWidth(), this.getIcon().getIconHeight());
 		
-		
-		
 	}
 
-	public void aceptar(Visitor visitor) {
+	public void aceppt(Visitor visitor) {
 		visitor.visit(this);
 	}
 	public boolean getConsumido() {
@@ -31,8 +32,9 @@ public class PowerUp extends JLabel {
 	}
 	public void consumir() {
 		consumido=true;
+
 	}
-	public int getMultiplicador() {
+	public float getMultiplicador() {
 		return multiplicador;
 	}
 }

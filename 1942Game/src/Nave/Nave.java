@@ -16,8 +16,6 @@ protected Nivel nivel;
 protected int puntajeNave;
 protected Visitor visitor;
 
-//Setters y Getters
-
 
 	public int getVida() {
 		return vida;

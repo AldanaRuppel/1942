@@ -2,6 +2,8 @@
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Image;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -34,6 +36,7 @@ public class GamePlay extends JFrame {
 	protected Teclado menteTeclado;
 	protected Thread hilo;
 	protected Teclado teclado;
+	protected GameOver gameO;
 
 	/**
 	 * Launch the application.
@@ -108,9 +111,11 @@ public class GamePlay extends JFrame {
 				{
 					jLabelCorazon = new JLabel();
 					PanelPuntos.add(jLabelCorazon);
-					jLabelCorazon.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Recursos/CorazonBurbuja3.png")));
+					jLabelCorazon.setIcon(new ImageIcon(getClass().getClassLoader().getResource(("Recursos/Corazon.png"))));
 					jLabelCorazon.setBounds(403, -1, 118, 38);
+					
 				}
+				
 				{
 					jLabelPuntaje = new JLabel();
 					jLabelPuntaje.setBounds(10, -4, 178, 44);
@@ -123,7 +128,6 @@ public class GamePlay extends JFrame {
 			}
 			{
 				jLabelPerdi = new JLabel();
-				jPanelNivel.add(jLabelPerdi);
 				jLabelPerdi.setText("Game Over");
 				jLabelPerdi.setBounds(145, 307, 286, 75);
 				jLabelPerdi.setFont(new java.awt.Font("Britannic Bold",1,36));
@@ -148,6 +152,7 @@ public class GamePlay extends JFrame {
 	public float getAncho() {
 		return this.getWidth();
 	}
+	
 	public float getAlto() {
 		return this.getHeight();
 	}
@@ -158,10 +163,9 @@ public class GamePlay extends JFrame {
 		this.addKeyListener(teclado);
 		nivel.iniciarJuego(this);		//nivel.moverNave(2);
 		jPanelNivel.add(nivel.getNave());
+	
 		
 	}
-	
-	
 	
 	public void agregarAlPanel (JLabel l) {
 		jPanelNivel.add(l);
@@ -173,11 +177,35 @@ public class GamePlay extends JFrame {
 		this.repaint();
 	}
 	
-	
 	public void actualizar() {this.repaint();}
 	
 	public JLabel mostrarGameOver() {
 		return jLabelPerdi;
+	}
+
+	public void perder() {
+		jPanelNivel.add(jLabelPerdi);
+		jLabelPerdi.setVisible(true);
+		/*
+		jPanelNivel.setVisible(false);
+		jPanelNivel.remove(this);
+		
+		gameO.add(jLabelPerdi);
+		gameO.setVisible(true);
+		jLabelPerdi.setVisible(true);
+		/*
+		System.out.println("PERDISTE QUE TRISTE NO HAY NADIE PEOR QUE VOS");
+		this.remove(jPanelNivel);
+		JPanel gameOver = new JPanel();
+		jPanelNivel.repaint();
+		this.add(gameOver);
+		this.repaint();
+		jPanelNivel.add(jLabelPerdi);
+		jLabelPerdi.setVisible(true);
+		jPanelNivel.repaint();
+		*/
+		//this.add(gameOver);
+		//this.repaint();
 	}
  
 		

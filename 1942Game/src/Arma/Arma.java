@@ -7,9 +7,8 @@ import GUI.autoRemove;
 import Logica.Nivel;
 import Visitores.Visitor;
 
-public class Arma extends Entidad {
+public abstract class Arma extends Entidad {
 
-	Nivel nivel = Nivel.getNivel();
 	protected int danio;
 	
 	public JLabel getArma() {return this;}
@@ -24,16 +23,12 @@ public class Arma extends Entidad {
 		// TODO Auto-generated method stub
 		
 	}
-	/*
-	public void mover(int i) {
-		super.mover(i);
-	}
-	*/
+	
 	public int getDanio() {
 		return danio;
 	}
-		
-	}
+
+}
 
 
 

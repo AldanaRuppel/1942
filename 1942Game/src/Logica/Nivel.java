@@ -1,6 +1,7 @@
 package Logica;
 
 import java.awt.Component;
+import java.awt.Shape;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -10,20 +11,23 @@ import javax.swing.text.Position;
 
 
 import Arma.Arma;
+import Arma.Laser;
 import Arma.Proyectil;
 import Consumible.PowerUp;
 import GUI.GamePlay;
+import GUI.autoRemove;
 import Hilos.HiloEnemigos;
 import Hilos.HiloMoverEnemigos;
 import Hilos.HiloMusica;
 import Jugador.Jugador;
-import Nave.Boss;
 import Nave.Nave;
 import Nave.NaveEnemiga;
 import Nave.NaveEnemigaA;
 import Nave.NaveEnemigaB;
 import Nave.NaveJugador;
-
+import Visitores.Visitor;
+import Visitores.VisitorNaveEnemiga;
+import Visitores.VisitorNaveJugador;
 
 public class Nivel {
 	protected boolean terminarJuego;
@@ -34,12 +38,12 @@ public class Nivel {
 	protected NaveJugador nave;
 	protected Jugador jugador;
 	public GamePlay juego;
-	protected Boss boss;
 	protected LinkedList<NaveEnemiga> navesPantalla;
 	protected LinkedList<Proyectil> proyectiles;
 	protected PowerUp power;
 	protected  NaveEnemiga naveE;
-	
+	protected Visitor visitor1;
+	protected Laser laser;
 	private static Nivel nivel = new Nivel();
 	
 	public  Nivel () {
@@ -52,15 +56,21 @@ public class Nivel {
 	public static Nivel getNivel() {
 		return nivel;
 	}
-	public void ganar () {
-		if(boss.getVida()==0) {
-			nivel.ganar();
-		}
-	}
+	
 	public void perder () {
 		if(jugador.getVida()==0) 
-			nivel.perder();
+			this.terminarJuego();
+			juego.perder();
+			
+		
+			
 		}
+	public void terminarJuego() {
+		hiloEnemigos.stop();
+		hiloMoverEnemigos.stop();
+		hilomusica.stop();
+	}
+	
 	public void consumirVidaNave() {
 		nave.consumirVida();
 		jugador.consumirVidaJugador();
@@ -68,6 +78,9 @@ public class Nivel {
 	public void consumirVidaEnemiga() {
 		naveE.consumirVida();
 		
+	}
+	public LinkedList<NaveEnemiga> getNavesPantalla() {
+		return (LinkedList<NaveEnemiga>) navesPantalla.clone();
 	}
 	
 
@@ -78,28 +91,13 @@ public class Nivel {
 		navesPantalla.addFirst(nave);
 		juego.agregarAlPanel(navesPantalla.getFirst());
 	}
-	/*
-	public void quitarNave() {
-		boolean encontre=false;
-		Position<NaveEnemiga> primero= conjuntoEnemigo.getFirst();
-			while(!conjuntoEnemigo.isEmpty() && !encontre) {
-					if(primero.getVida()==0) {
-						juego.quitarNave();
-						conjuntoEnemigo.remove(primero);
-						encontre=true;
-					}
-				primero =(primero==conjuntoEnemigo.getLast())?null:conjuntoEnemigo.next(primero);
-			}
-	}
-	*/
+
 	public void setJuego (GamePlay juego) {
-		
 		this.juego=juego;
 	}
 	
 	public void moverNave(int i) {
 		nave.mover(i);
-		
 		
 	}
 	public void atacarNave() {
@@ -108,7 +106,6 @@ public class Nivel {
 	public void setNaveEnemiga (NaveEnemiga naveE) {
 		navesPantalla.add(naveE);
 		juego.agregarAlPanel(naveE);
-		
 		
 	}
 	public void setArma(Arma arma) {
@@ -134,7 +131,8 @@ public class Nivel {
 		navesPantalla = new LinkedList<NaveEnemiga>();
 		proyectiles= new LinkedList<Proyectil>();
 		nave = new NaveJugador();
-		 power= new PowerUp(100);
+		power= new PowerUp();
+		jugador = new Jugador ();
 		LinkedList<NaveEnemiga> enemigos= new LinkedList<NaveEnemiga>();
 		NaveEnemigaA naveA= new NaveEnemigaA();
 		enemigos.add(naveA);
@@ -176,11 +174,6 @@ public class Nivel {
 	      hiloMoverEnemigos = new Thread(hiloME);
 	      hiloMoverEnemigos.start();
 	      
-
-	      
-	//Lista de enemigos
-	
-
 }
 	public void moverEnemigos() {
 		
@@ -199,17 +192,14 @@ public class Nivel {
 		}
 	}
 	
-	
 	public void moverProyectil () {
-		
 		for (Proyectil p: (LinkedList<Proyectil>)proyectiles.clone()) {
 			p.moverArmamento(2);
 			p.moverArmamento(4);
 			p.repaint();
 			juego.actualizar();
 		}
-			
-		}
+	}
 	public void quitarArma(Proyectil arma) {
 		proyectiles.remove(arma);
 		juego.quitarDelPanel(arma);
@@ -218,22 +208,25 @@ public class Nivel {
 		juego.quitarDelPanel(l);
 	}
 	public void EliminarNaveJugador() {
-		juego.quitarDelPanel( nave);
-		 hiloEnemigos.stop();
-		hiloMoverEnemigos.stop();
-		juego.mostrarGameOver();
+		juego.quitarDelPanel(nave);jugador.consumirVidaJugador();
+		if (jugador.getVida() > 0) {
+			nave = new NaveJugador();
+			juego.agregarAlPanel(nave);
+		}
+		else
+			perder();
+		
 	}
 	public void EliminarNaveEnemiga (NaveEnemiga nE) {
-		conjuntoEnemigo.remove(nE);
 		navesPantalla.remove(nE);
-		EliminarElemento(nE);
+		juego.quitarDelPanel(nE);
 		
 	}
 	public void ColisionNaveJugador() {
 		  if (nave.getBounds().intersects(power.getBounds())) {
-			  power.aceptar(nave.getVisitor());
+			  power.aceppt(nave.getVisitor());
 		  }
-		LinkedList<NaveEnemiga> copiaEnemigos = (LinkedList<NaveEnemiga>) conjuntoEnemigo.clone();
+		LinkedList<LinkedList<NaveEnemiga>> copiaEnemigos = (LinkedList<LinkedList<NaveEnemiga>>) conjuntoEnemigo.clone();
 		LinkedList<Proyectil> copiaProyectil = (LinkedList<Proyectil>) proyectiles.clone();
 		   
 		    for (Proyectil proyectil : copiaProyectil) {
@@ -241,19 +234,14 @@ public class Nivel {
 		          proyectil.aceppt(nave.getVisitor());
 		        }
 		    }
-		    for (NaveEnemiga enemigos : copiaEnemigos) {
-		        if (nave.getBounds().intersects(enemigos.getBounds())) {
-		           enemigos.aceppt(nave.getVisitor());
-		        }
+		    for (NaveEnemiga n :  (LinkedList<NaveEnemiga>) navesPantalla.clone()){
+		        	if (nave.getBounds().intersects(n.getBounds())) {
+		        		n.aceppt(nave.getVisitor());
+		        	}
+		
 		    }
 	}
-		
-	
-	public void ColisionEnemigos () {
-		
-	}
-
-	}
+}
 
 
 	

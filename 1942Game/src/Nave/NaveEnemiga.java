@@ -14,12 +14,13 @@ public  abstract class NaveEnemiga  extends Nave{
 	Nivel nivel = Nivel.getNivel();
 	protected int tiempoAtaque;
 	protected Visitor visitor;
+	protected int puntaje;
 
-@Override
 	public void atacar() {
 		arma = generarAtaque();
 		nivel.setArma(arma);
 		arma.setVisible(true);
+		
 	}
 
 	protected abstract Proyectil generarAtaque();
@@ -35,6 +36,4 @@ public  abstract class NaveEnemiga  extends Nave{
 		visitor.visit(this);
 		
 	}
-
-
 }
