@@ -59,10 +59,9 @@ public class Nivel {
 	
 	public void perder () {
 		if(jugador.getVida()==0) 
-			this.terminarJuego();
 			juego.perder();
+			this.terminarJuego();
 			
-		
 			
 		}
 	public void terminarJuego() {
@@ -194,8 +193,8 @@ public class Nivel {
 	
 	public void moverProyectil () {
 		for (Proyectil p: (LinkedList<Proyectil>)proyectiles.clone()) {
-			p.moverArmamento(2);
-			p.moverArmamento(4);
+			p.moverArmamento();
+
 			p.repaint();
 			juego.actualizar();
 		}

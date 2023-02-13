@@ -13,5 +13,9 @@ public class Proyectil2 extends Proyectil {
 		this.setBounds(x, y-(int)this.getIcon().getIconHeight(),this.getIcon().getIconWidth(), this.getIcon().getIconHeight());
 		
 	}
+	public void moverArmamento() {
+		MoverAbajo();
+		MoverDerecha();
+	}
 
 }

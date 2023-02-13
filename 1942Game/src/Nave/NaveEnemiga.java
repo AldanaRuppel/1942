@@ -36,4 +36,12 @@ public  abstract class NaveEnemiga  extends Nave{
 		visitor.visit(this);
 		
 	}
+	public int getPuntaje() {
+		return puntaje;
+	}
+
+	public void setPuntajeNave(int puntaje ) {
+		this.puntaje=puntaje;
+	}
+	
 }

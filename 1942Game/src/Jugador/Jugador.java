@@ -23,4 +23,7 @@ public class Jugador {
 	public void consumirVidaJugador() {
 		vida--;
 	}
+	public void aumentarPuntaje() {
+		puntaje++;
+	}
 }

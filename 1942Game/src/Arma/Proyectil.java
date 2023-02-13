@@ -12,34 +12,8 @@ public abstract class Proyectil extends Arma {
 		visitor.visit(this);
 	}
 
-	public  void moverArmamento(int i) {
-		if (this.getLocation().y >= 590) 
-			nivel.quitarArma(this);
-		else
-			switch(i) {
-		case 1: {
-			MoverArriba();
-
-			break;
-		}
-		case 2: {
-			MoverAbajo();
-			
-			break;
-		}
-		case 3: {
-			MoverIzquierda();
-
-			break;
-		}
-		case 4: {
-			MoverDerecha();	
-
-			break;
-		}
-			}
-		this.repaint();
-	}
+	public  void moverArmamento() {}
+	
 	protected void MoverDerecha(){
 		int x=this.getX()+velocidad;
 			if(x<=500)
@@ -62,11 +36,16 @@ public abstract class Proyectil extends Arma {
 		int y=this.getY()+velocidad;
 			if(y<=600)
 				this.setBounds(this.getX(), y,this.getIcon().getIconWidth(), this.getIcon().getIconHeight());
+			else
+					nivel.quitarArma(this);
+				
+					
 	}
 
 	public void aceppt(Visitor visitor) {
 		visitor.visit(this);
 	}
+	
 }
 
 

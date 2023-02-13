@@ -18,4 +18,7 @@ public class Proyectil1  extends Proyectil {
  	public void aceptar(Visitor visitor) {
  		visitor.visit(this);
  	}
+ 	public void moverArmamento(){
+ 		MoverAbajo();
+ 	}
 }

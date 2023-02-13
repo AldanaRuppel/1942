@@ -13,7 +13,6 @@ public abstract class Nave  extends Entidad{
 protected int vida;
 protected Arma arma;
 protected Nivel nivel;
-protected int puntajeNave;
 protected Visitor visitor;
 
 
@@ -44,16 +43,8 @@ protected Visitor visitor;
 		return nivel;
 	}
 	
-	
-	public void setPuntajeNave(int puntaje ) {
-		this.puntajeNave=puntaje;
-	}
-	public int obtenerPuntaje () {
-		return puntajeNave;
-	}
 	public void consumirVida() {
 		vida--;
 	}
 	
-
 }

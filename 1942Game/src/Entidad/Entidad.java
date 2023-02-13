@@ -2,11 +2,14 @@ package Entidad;
 
 import javax.swing.JLabel;
 
+import Logica.Nivel;
+
 public abstract class Entidad extends JLabel {
 	protected int velocidad;
 	
 	public abstract int  getVelocidad();
 	public abstract void atacar();
+	Nivel nivel = Nivel.getNivel();
 
 	public void mover(int i) {
 		switch(i) {
@@ -63,7 +66,11 @@ public abstract class Entidad extends JLabel {
 		int y=this.getY()+velocidad;
 		if(y<=600)
 			this.setBounds(this.getX(), y,this.getIcon().getIconWidth(), this.getIcon().getIconHeight());
-			//this.setLocation(this.getX(), y);
+		else {
+			nivel.EliminarElemento(this);
+			nivel.terminarJuego();
+		}
+			
 
 	}
 
