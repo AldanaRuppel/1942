@@ -3,6 +3,7 @@ package Visitores;
 import Arma.Laser;
 import Arma.Proyectil;
 import Consumible.PowerUp;
+import Jugador.Jugador;
 import Logica.Nivel;
 import Nave.NaveEnemiga;
 import Nave.NaveJugador;
@@ -11,6 +12,7 @@ public class VisitorNaveJugador  extends Visitor{
 	
 	protected NaveJugador nave;
 	protected 	Nivel nivel = Nivel.getNivel();
+	protected Jugador jugador;
 	
 	public VisitorNaveJugador (NaveJugador n) {
 		nave = n;
@@ -45,6 +47,7 @@ public class VisitorNaveJugador  extends Visitor{
 	public void visit(NaveEnemiga nE) {
 		nivel.EliminarNaveEnemiga(nE);
 		nivel.consumirVidaNave();
+		
 		
 	}
 

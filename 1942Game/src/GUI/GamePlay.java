@@ -39,6 +39,7 @@ public class GamePlay extends JFrame {
 	protected Teclado teclado;
 	protected GameOver gameO;
 	protected Jugador jugador;
+	protected JLabel jLabelGanar;
 
 	/**
 	 * Launch the application.
@@ -75,6 +76,8 @@ public class GamePlay extends JFrame {
 			setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 			getContentPane().setBackground(new java.awt.Color(173,216,230));
 			this.setResizable(false);
+		
+			
 
 			ImageIcon img=new ImageIcon(getClass().getClassLoader().getResource("Recursos/Fondo2.png"));
 			jPanelNivel = new ImagenPanel(img.getImage());
@@ -113,23 +116,15 @@ public class GamePlay extends JFrame {
 				{
 					jLabelCorazon = new JLabel();
 					PanelPuntos.add(jLabelCorazon);
-					jLabelCorazon.setIcon(new ImageIcon(getClass().getClassLoader().getResource(("Recursos/Corazon.png"))));
+					jLabelCorazon.setIcon(new ImageIcon(getClass().getClassLoader().getResource(("Recursos/CorazonBurbuja3.png"))));
 					jLabelCorazon.setBounds(403, -1, 118, 38);
-					JLabel jLabelCorazon2 = new JLabel();
-					PanelPuntos.add(jLabelCorazon2);
-					jLabelCorazon2.setIcon(new ImageIcon(getClass().getClassLoader().getResource(("Recursos/Corazon.png"))));
-					jLabelCorazon2.setBounds(403, -1, 118, 38);
-					JLabel jLabelCorazon3 = new JLabel();
-					PanelPuntos.add(jLabelCorazon3);
-					jLabelCorazon3.setIcon(new ImageIcon(getClass().getClassLoader().getResource(("Recursos/Corazon.png"))));
-					jLabelCorazon3.setBounds(403, -1, 118, 38);
 				}
 				
 				{
 					jLabelPuntaje = new JLabel();
 					jLabelPuntaje.setBounds(10, -4, 178, 44);
 					PanelPuntos.add(jLabelPuntaje);
-					jLabelPuntaje.setText("Score:");
+					jLabelPuntaje.setText("Score : ");
 					jLabelPuntaje.setFont(new java.awt.Font("Segoe UI",1,20));
 					jLabelPuntaje.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Recursos/monedita.gif")));
 					jLabelPuntaje.setForeground(new java.awt.Color(255,0,0));
@@ -146,6 +141,7 @@ public class GamePlay extends JFrame {
 				jLabelPerdi.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Recursos/gameover (2).gif")));
 			}
 			{
+				
 
 			}
 
@@ -172,7 +168,8 @@ public class GamePlay extends JFrame {
 		this.addKeyListener(teclado);
 		nivel.iniciarJuego(this);		//nivel.moverNave(2);
 		jPanelNivel.add(nivel.getNave());
-	
+		
+		
 		
 	}
 	
@@ -191,11 +188,11 @@ public class GamePlay extends JFrame {
 	public JLabel mostrarGameOver() {
 		return jLabelPerdi;
 	}
-	public void sacarLabelCorazon() {
-		if(jugador) {
-			
-		}
+	
+	public void actualizarPuntaje(int puntos) {
+		jLabelPuntos.setText(""+String.valueOf(puntos));
 	}
+
 
 	public void perder() {
 		jLabelPerdi = new JLabel();
@@ -214,9 +211,43 @@ public class GamePlay extends JFrame {
 		
 		
 	}
- 
-		
- }
+	public void actualizarVida () {
+			
+			if(nivel.obtenerJugador().getVida()==2) 
+				jLabelCorazon.setIcon(new ImageIcon(getClass().getClassLoader().getResource(("Recursos/doscorazones.png"))));
+		else 
+				if(nivel.obtenerJugador().getVida()==1) {
+					jLabelCorazon.setIcon(new ImageIcon(getClass().getClassLoader().getResource(("Recursos/uncorazon.png"))));
+			}
+				if(nivel.obtenerJugador().getVida()==0) {
+					jLabelCorazon.setIcon(null);
 
+				}
+		
+	}	
+	public void ganar() {
+		jLabelGanar = new JLabel();
+		jLabelGanar.setText("");
+		jLabelGanar.setBounds(145, 307, 286, 75);
+		jLabelGanar.setFont(new java.awt.Font("Britannic Bold",1,36));
+		jLabelGanar.setBackground(new java.awt.Color(255,0,0));
+		jLabelGanar.setForeground(new java.awt.Color(255,0,0));
+		jLabelGanar.setVisible(true);
+		jLabelGanar.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Recursos/win.gif")));
+		jPanelNivel.add(jLabelGanar);
+		this.repaint();
+		jPanelNivel.setComponentZOrder(jLabelGanar, 0);
+		//contentPane.add(jLabelPerdi);
+		jPanelNivel.repaint();
+		
+		
+	}
+		
+	}
+			
+		
+			
+	
+ 
 
 

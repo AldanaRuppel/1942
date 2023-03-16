@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 
+import Logica.Nivel;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
@@ -14,6 +15,7 @@ public class HiloMusica implements Runnable {
 	
 	protected String musica;
 	protected long milisegundos;
+	protected Nivel nivel = Nivel.getNivel();
 	
 	public HiloMusica() {
 		musica = "Recursos/audioMusica.mp3";
@@ -23,7 +25,7 @@ public class HiloMusica implements Runnable {
 	@Override
 	public void run() {
 		
-			while (true){
+			while (!nivel.getTerminar()){
 				milisegundos ++;
 				if (milisegundos % 88000== 0) {
 					try {

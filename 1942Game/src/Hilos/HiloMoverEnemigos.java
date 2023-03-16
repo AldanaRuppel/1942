@@ -26,7 +26,7 @@ public class HiloMoverEnemigos implements Runnable {
 				nivel.moverProyectil();
 				nivel.ColisionNaveJugador();
 			try {
-				Thread.sleep(50);
+				Thread.sleep(20);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

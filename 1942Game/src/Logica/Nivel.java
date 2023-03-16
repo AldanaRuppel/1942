@@ -24,6 +24,7 @@ import Nave.Nave;
 import Nave.NaveEnemiga;
 import Nave.NaveEnemigaA;
 import Nave.NaveEnemigaB;
+import Nave.NaveEnemigaC;
 import Nave.NaveJugador;
 import Visitores.Visitor;
 import Visitores.VisitorNaveEnemiga;
@@ -47,10 +48,11 @@ public class Nivel {
 	private static Nivel nivel = new Nivel();
 	
 	public  Nivel () {
-		
+	terminarJuego=false;
         
 	}
 	public boolean getTerminar () {
+		
 		return terminarJuego;
 	}
 	public static Nivel getNivel() {
@@ -64,10 +66,21 @@ public class Nivel {
 			
 			
 		}
+	public boolean ganar() {
+		boolean gano=false;
+		if(conjuntoEnemigo.isEmpty()) {
+			gano=true;
+			juego.ganar();
+			terminarJuego();
+		}
+		return gano;
+	}
 	public void terminarJuego() {
 		hiloEnemigos.stop();
 		hiloMoverEnemigos.stop();
 		hilomusica.stop();
+		terminarJuego=true;
+	
 	}
 	
 	public void consumirVidaNave() {
@@ -132,7 +145,7 @@ public class Nivel {
 		nave = new NaveJugador();
 		power= new PowerUp();
 		jugador = new Jugador ();
-		LinkedList<NaveEnemiga> enemigos= new LinkedList<NaveEnemiga>();
+	     LinkedList<NaveEnemiga> enemigos;enemigos= new LinkedList<NaveEnemiga>();
 		NaveEnemigaA naveA= new NaveEnemigaA();
 		enemigos.add(naveA);
 		naveA= new NaveEnemigaA();
@@ -148,7 +161,11 @@ public class Nivel {
 		naveB= new NaveEnemigaB();
 		enemigos2.add(naveB);
 		conjuntoEnemigo.add(enemigos2);
-		
+		LinkedList<NaveEnemiga> enemigos3= new LinkedList<NaveEnemiga>();
+		NaveEnemigaC naveC= new NaveEnemigaC();
+		enemigos3.add(naveC);
+		naveC= new NaveEnemigaC();
+		conjuntoEnemigo.add(enemigos3);
 		
 		//Crear otras listas con el mismo procedimiento
 		
@@ -207,7 +224,9 @@ public class Nivel {
 		juego.quitarDelPanel(l);
 	}
 	public void EliminarNaveJugador() {
-		juego.quitarDelPanel(nave);jugador.consumirVidaJugador();
+		juego.quitarDelPanel(nave);
+		jugador.consumirVidaJugador();
+		juego.actualizarVida();
 		if (jugador.getVida() > 0) {
 			nave = new NaveJugador();
 			juego.agregarAlPanel(nave);
@@ -216,16 +235,18 @@ public class Nivel {
 			perder();
 		
 	}
+	
 	public void EliminarNaveEnemiga (NaveEnemiga nE) {
+		conjuntoEnemigo.remove(nE);
 		navesPantalla.remove(nE);
 		juego.quitarDelPanel(nE);
-		
 	}
+	
 	public void ColisionNaveJugador() {
 		  if (nave.getBounds().intersects(power.getBounds())) {
 			  power.aceppt(nave.getVisitor());
 		  }
-		LinkedList<LinkedList<NaveEnemiga>> copiaEnemigos = (LinkedList<LinkedList<NaveEnemiga>>) conjuntoEnemigo.clone();
+		
 		LinkedList<Proyectil> copiaProyectil = (LinkedList<Proyectil>) proyectiles.clone();
 		   
 		    for (Proyectil proyectil : copiaProyectil) {
@@ -239,6 +260,21 @@ public class Nivel {
 		        	}
 		
 		    }
+		    if(conjuntoEnemigo.isEmpty()) {
+		    	juego.ganar();
+		    	terminarJuego();
+		    }
+		    
+	}
+	public void aumentarScore(int puntaje) {
+		jugador.aumentarPuntaje(puntaje);
+		juego.actualizarPuntaje(jugador.getPuntaje());
+	}
+	public Jugador obtenerJugador () {
+		return jugador;
+	}
+	public void actualizarVidaJugador() {
+		juego.actualizarVida();
 	}
 }
 

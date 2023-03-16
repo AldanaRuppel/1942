@@ -12,9 +12,9 @@ public class NaveEnemigaA extends NaveEnemiga {
 	
 	public NaveEnemigaA() {
 		vida=7;
-		velocidad=2;
+		velocidad=1;
 		puntaje=50;
-		tiempoAtaque = (int)(Math.random()*(40-5+1)+30);
+		tiempoAtaque = (int)(Math.random()*(60-5+1)+80);
 		this.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Recursos/enemyA.png")));
 		int x = (int)(Math.random()*(500-50+1)+50);
 		this.setBounds(x, 50,this.getIcon().getIconWidth(), this.getIcon().getIconHeight());

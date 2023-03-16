@@ -32,7 +32,7 @@ public class HiloEnemigos implements Runnable {
 		          Thread.sleep(dormir);
 		        }
 		        conjuntoEnemigos.remove(conjuntoEnemigos.getFirst());
-		        Thread.sleep(20000);
+		        Thread.sleep(8000);
 		        
 		      } catch (InterruptedException e) {
 		        e.printStackTrace();
